@@ -12,8 +12,13 @@ import {
 } from "reactstrap";
 
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Forms = () => {
+  const [usermnemonic, setUserMnemonic] = useState('')
+  const handleUserMnemonic = (e) => {
+    setUserMnemonic(e.target.value)
+  }
   return (
     <Row>
       <Col>
@@ -26,11 +31,11 @@ const Forms = () => {
             <Form>
               <FormGroup>
                 <Label for="exampleText">Mnemonic Code</Label>
-                <Input id="exampleText" name="text" type="textarea" 
+                <Input onChange={handleUserMnemonic} id="exampleText" name="text" type="textarea" 
                 placeholder="니모닉 코드 문구를 입력하세요. 각 단어 사이는 띄어쓰기로 구분합니다."
                 />
               </FormGroup>
-              <Link to="/walletbalancetransfer" style={{ textDecoration: 'none' }}> 
+              <Link to="/walletbalancetransfer" state={{usermnemonic: usermnemonic}} style={{ textDecoration: 'none' }}> 
                 <Button className="btn" color="primary" size="lg" block>
                   Access Terra Wallet
                 </Button>

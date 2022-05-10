@@ -1,77 +1,38 @@
 import { LCDClient, MnemonicKey } from '@terra-money/terra.js';
-import {
-  Card,
-  Row,
-  Col,
-  CardTitle,
-  CardBody,
-  Button,
-  Container
-} from "reactstrap";
+import { Card, Row, Col, CardTitle, CardBody, Button, Container } from "reactstrap";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-/*
-const Forms = () => {
-  // 니모닉 키 만들기
-  const MNE_KEY_RANDOM = new MnemonicKey();
-  const MNE_KEY_ARR = MNE_KEY_RANDOM.mnemonic.split(' ');
-  function makeMenmonic() {
-    const MNE_KEY_RANDOM = new MnemonicKey();
-    const MNE_KEY_ARR = MNE_KEY_RANDOM.mnemonic.split(' ');
-    const [mnemonic, setMnemonic] = UseState({
-      1: "one"
-    });
-    //const [mnemonic_arr, MNE_KEY_ARR2] = UseState();
-    //MNE_KEY_ARR2({ MNE_KEY_RANDOM });
-    //const MNE_KEY_ARR = MNE_KEY_RANDOM.mnemonic.split(' ');
-    //console.log(MNE_KEY_ARR2);
-    console.log(MNE_KEY_ARR);
-  }
-  makeMenmonic();
-};*/
-function WalletImport({}){
-  const [ mnemonic, chageMnemonic ] = useState('');
-  console.log("1입니다")
-  console.log(mnemonic);
-  const MNE_KEY_RANDOM = new MnemonicKey();
-  const MNE_KEY_ARR = MNE_KEY_RANDOM.mnemonic.split(' ');
-  
-  function makeMenmonic() {
-    const MNE_KEY_RANDOM = new MnemonicKey();
-    const MNE_KEY_ARR = MNE_KEY_RANDOM.mnemonic.split(' ');
-    // //const [mnemonic_arr, MNE_KEY_ARR2] = UseState();
-    //MNE_KEY_ARR2({ MNE_KEY_RANDOM });
-    //const MNE_KEY_ARR = MNE_KEY_RANDOM.mnemonic.split(' ');
-    //console.log(MNE_KEY_ARR2);
-    //console.log(WalletImport);
-    //console.log(MNE_KEY_ARR);
-    //console.log(WalletImport);
-    return MNE_KEY_ARR;
-  }
-  //makeMenmonic();
+import { Route, Link } from "react-router-dom";
 
-  //setMnemonic(MNE_KEY_RANDOM.menmonic)
-  // const handleChangeMnemonic = (e) => {
-  //   chageMnemonic("hello")
-  // }
-  console.log("2입니다")
+function WalletImport({props}){
+  const [ mnemonic, chageMnemonic ] = useState('');
+  const MNE_KEY_RANDOM = new MnemonicKey();
+  const MNE_KEY_ARR = MNE_KEY_RANDOM.mnemonic.split(' ');
+  console.log(MNE_KEY_RANDOM)
+  // MNE_KEY_RANDOM.mnemonic  // buzz lazy ship toy super brisk swarm comic conduct pioneer tray slow before betray matrix cruel cactus brand chat evolve option melody ignore sorry
+  // MNE_KEY_RANDOM.privateKey // <Buffer 5f fb 6e a5 12 3f 8c fa 61 b3 2f b8 9c eb fa 7f a2 9d a8 17 c1 3b 7e 84 b1 3c 0c 58 64 ea 48 4b>
+  // MNE_KEY_RANDOM.publicKey // SimplePublicKey { key: 'AzQi49+NMie/frj7GcJqzru8cHaeMAq+nW2EGHW93FB/' }
+  // MNE_KEY_RANDOM.accAddress // terra12sjx2nhe4vls0g9y55umk64zv87wxv48v0ut8v
+  // MNE_KEY_RANDOM.publicKey.key // AzQi49+NMie/frj7GcJqzru8cHaeMAq+nW2EGHW93FB/
+
+  /*
+  function makeMenmonic() {
+    const MNE_KEY_RANDOM = new MnemonicKey();
+    const MNE_KEY_ARR = MNE_KEY_RANDOM.mnemonic.split(' ');
+    return MNE_KEY_ARR;
+  }*/
 
   function handleChangeMnemonic() {
     const word = MNE_KEY_RANDOM.mnemonic.split(' ');
-    //const MNE_KEY_ARR = MNE_KEY_RANDOM.mnemonic.split(' ');
     chageMnemonic(word)
-    console.log("word :",word)
   }
-  console.log("4입니다")
-  console.log(mnemonic)
-  console.log(MNE_KEY_ARR)
+
     return (
       <Row>
         <Col>
           <Card style={{ width: '55rem' }}>
             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
               <i className="bi bi-bell me-2"> </i>
-              Wallet Create 개발중
+              Wallet Create 개발중 / 24단어 BIP-39 MnemonicKey
             </CardTitle>
             <CardBody>
             <Container>
@@ -159,7 +120,7 @@ function WalletImport({}){
                   <div className="bg-light p-2 border">{MNE_KEY_ARR[23]}</div>
                 </Col>
               </Row>
-              
+
             </Container>
             <CardBody className="">
                 <div className="button-group">
@@ -173,7 +134,14 @@ function WalletImport({}){
               </CardBody>
               <CardBody className="">
                 <div className="button-group">
-                <Link to="/walletbalancetransfer" state={{data: MNE_KEY_ARR}} style={{ textDecoration: 'none' }}>
+                <Link to="/walletBalanceTransfer" 
+                  state={{ 
+                    mne_key : MNE_KEY_RANDOM,
+                    mnemonic: MNE_KEY_RANDOM.mnemonic, 
+                    privateKey: MNE_KEY_RANDOM.privateKey,
+                    publicKey: MNE_KEY_RANDOM.publicKey.key,
+                    accAddress: MNE_KEY_RANDOM.accAddress}} 
+                  style={{ textDecoration: 'none' }}>
                   <Button className="btn" color="primary" size="lg" block>
                     Create Terra Wallet
                   </Button>
@@ -186,6 +154,5 @@ function WalletImport({}){
       </Row>
     );
 }
-
 
 export default WalletImport;
